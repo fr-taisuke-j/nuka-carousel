@@ -61,7 +61,7 @@
   "scripts": {
     "preversion": "npm run check",
     "version": "npm run build",
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development --port 9000",
     "build-babel": "babel src",
     "build-es": "builder run  --env \"{\\\"BABEL_ENV\\\":\\\"esm\\\"}\" build-babel -- -d es",
     "build-lib": "builder run build-babel -- -d lib",

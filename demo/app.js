@@ -2,7 +2,43 @@ import Carousel from '../src/index';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const colors = ['7732bb', '047cc0', '00884b', 'e3bc13', 'db7c00', 'aa231f'];
+// QUICK TESTING
+const TestComponent1 = props => {
+  const style = {
+    padding: '100px 0',
+    background: '#eee',
+    textAlign: 'center'
+  }
+  return (
+    <div style={style} onClick={() => props.clickEvent(props.name)}>
+      {props.name}
+    </div>
+  )
+}
+const TestComponent2 = props => {
+  const style = {
+    padding: '100px 0',
+    background: '#ccc',
+    textAlign: 'center'
+  }
+  return (
+    <div style={style} onClick={() => props.clickEvent(props.name)}>
+      {props.name}
+    </div>
+  )
+}
+const TestComponent3 = props => {
+  const style = {
+    padding: '100px 0',
+    background: '#aaa',
+    textAlign: 'center'
+  }
+  return (
+    <div style={style} onClick={() => props.clickEvent(props.name)}>
+      {props.name}
+    </div>
+  )
+}
 
 class App extends React.Component {
   constructor() {
@@ -16,12 +52,11 @@ class App extends React.Component {
       cellAlign: 'left',
       transitionMode: 'scroll'
     };
-
-    this.handleImageClick = this.handleImageClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleImageClick() {
-    this.setState({ underlineHeader: !this.state.underlineHeader });
+  handleClick(name) {
+    console.log(name);
   }
 
   render() {
@@ -47,55 +82,15 @@ class App extends React.Component {
             </div>
           )}
         >
-          {colors
-            .slice(0, this.state.length)
-            .map((color, index) => (
-              <img
-                src={`http://placehold.it/1000x400/${color}/ffffff/&text=slide${index +
-                  1}`}
-                key={color}
-                onClick={this.handleImageClick}
-              />
-            ))}
+          <TestComponent1 name='Test 1' clickEvent={(this.handleClick)} /> 
+          <TestComponent2 name='Test 2' clickEvent={(this.handleClick)} /> 
+          <TestComponent3 name='Test 3' clickEvent={(this.handleClick)} /> 
         </Carousel>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>
             <button onClick={() => this.setState({ slideIndex: 0 })}>1</button>
             <button onClick={() => this.setState({ slideIndex: 1 })}>2</button>
             <button onClick={() => this.setState({ slideIndex: 2 })}>3</button>
-            <button onClick={() => this.setState({ slideIndex: 3 })}>4</button>
-            <button onClick={() => this.setState({ slideIndex: 4 })}>5</button>
-            <button onClick={() => this.setState({ slideIndex: 5 })}>6</button>
-          </div>
-          <div>
-            <button
-              onClick={() =>
-                this.setState({
-                  length: 2
-                })
-              }
-            >
-              2 Slides Only
-            </button>
-            <button
-              onClick={() =>
-                this.setState({
-                  transitionMode:
-                    this.state.transitionMode === 'fade' ? 'scroll' : 'fade'
-                })
-              }
-            >
-              Toggle Fade {this.state.transitionMode === 'fade' ? 'Off' : 'On'}
-            </button>
-            <button
-              onClick={() =>
-                this.setState(prevState => ({
-                  wrapAround: !prevState.wrapAround
-                }))
-              }
-            >
-              Toggle Wrap Around
-            </button>
           </div>
         </div>
         {this.state.transitionMode !== 'fade' && (
@@ -113,17 +108,6 @@ class App extends React.Component {
                 </button>
               </div>
             )}
-            <div style={{ marginLeft: 'auto' }}>
-              <button
-                onClick={() =>
-                  this.setState({
-                    slidesToShow: this.state.slidesToShow > 1.0 ? 1.0 : 1.25
-                  })
-                }
-              >
-                Toggle Partially Visible Slides
-              </button>
-            </div>
           </div>
         )}
       </div>
